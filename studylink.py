@@ -103,6 +103,7 @@ def notes_section():
 # ---------------------------
 import streamlit as st
 import requests
+import json
 
 def ai_helper():
     st.header("🤖 AI Doubt Solver (Free No-Key AI)")
@@ -110,32 +111,35 @@ def ai_helper():
     user_q = st.text_area("Ask any study question")
 
     if st.button("Get Answer"):
-        if user_q.strip():
+        if not user_q.strip():
+            st.warning("Enter a question first.")
+            return
+        
+        try:
+            url = "https://huggingface.co/meta-llama/Llama-3-8B-Instruct"
 
+            headers = {
+                "Content-Type": "application/json"
+            }
+
+            payload = {
+                "inputs": user_q,
+                "parameters": {"max_new_tokens": 100}
+            }
+
+            response = requests.post(url, headers=headers, data=json.dumps(payload))
+            
+            # HF returns raw text, not OpenAI-style
             try:
-                url = "https://api.together.xyz/v1/chat/completions"
+                answer = response.json()[0]["generated_text"]
+            except:
+                answer = response.text
 
-                payload = {
-                    "model": "meta-llama/Llama-3-8B-Instruct",
-                    "messages": [
-                        {"role": "user", "content": user_q}
-                    ],
-                    "max_tokens": 150
-                }
+            st.success(answer)
 
-                # NO API KEY REQUIRED
-                response = requests.post(url, json=payload)
-                data = response.json()
+        except Exception as e:
+            st.error(f"Error: {e}")
 
-                if "choices" in data:
-                    answer = data["choices"][0]["message"]["content"]
-                    st.success(answer)
-                else:
-                    st.error("❌ Model returned no answer. Try again in a few seconds.")
-                    st.write(data)
-
-            except Exception as e:
-                st.error(f"Error: {e}")
 
 # ---------------------------
 # MAIN APP UI
