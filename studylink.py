@@ -114,11 +114,11 @@ def ai_helper():
             st.warning("Enter a question first.")
             return
 
-        url = "https://api.deepinfra.com/v1/inference/meta-llama/Meta-Llama-3-8B-Instruct"
+        url = "https://ollama-api2-ncj0.onrender.com/api/generate"
 
         payload = {
-            "input": user_q,
-            "max_new_tokens": 100
+            "model": "llama3.2",   # no-key free model
+            "prompt": user_q
         }
 
         try:
@@ -126,14 +126,13 @@ def ai_helper():
             
             if response.status_code == 200:
                 data = response.json()
-                answer = data["results"][0]["generated_text"]
+                answer = data["response"]
                 st.success(answer)
             else:
                 st.error(f"API Error: {response.text}")
 
         except Exception as e:
             st.error(f"Error: {e}")
-
 
 # ---------------------------
 # MAIN APP UI
