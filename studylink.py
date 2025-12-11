@@ -101,18 +101,32 @@ def notes_section():
 # ---------------------------
 # AI DOUBT SOLVER (DEMO)
 # ---------------------------
+import openai
+
 def ai_helper():
     st.header("🤖 AI Doubt Solver")
 
     user_q = st.text_area("Ask any study question")
 
     if st.button("Get Answer"):
-        if len(user_q.strip()) > 0:
-            st.info("This is a demo AI response.")
-            st.success(
-                "📌 *Example AI Answer:* This topic involves concepts from your question. "
-                "In real product, this will use NLP to give full explanations."
-            )
+        if user_q.strip():
+            try:
+                client = openai.OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+
+                response = client.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=[
+                        {"role": "system", "content": "You are a helpful educational assistant."},
+                        {"role": "user", "content": user_q}
+                    ]
+                )
+
+                answer = response.choices[0].message["content"]
+                st.success(answer)
+
+            except Exception as e:
+                st.error("❌ Error: " + str(e))
+                st.info("⚠ Make sure your API key is correct in Secrets and requirements.txt contains 'openai'.")
 
 # ---------------------------
 # MAIN APP UI
