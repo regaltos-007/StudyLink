@@ -122,7 +122,7 @@ def ai_helper():
         }
 
         payload = {
-            "model": "llama3-8b-8192",
+            "model": "llama-3.1-8b-instant",   # ✅ Updated model
             "messages": [
                 {"role": "user", "content": user_q}
             ],
@@ -131,16 +131,18 @@ def ai_helper():
 
         try:
             response = requests.post(url, json=payload, headers=headers)
-            
+
             if response.status_code == 200:
                 data = response.json()
                 answer = data["choices"][0]["message"]["content"]
                 st.success(answer)
+
             else:
                 st.error(f"API Error: {response.text}")
 
         except Exception as e:
             st.error(f"Error: {e}")
+
 
 
 # ---------------------------
