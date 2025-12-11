@@ -102,6 +102,7 @@ def notes_section():
 # AI DOUBT SOLVER (DEMO)
 # ---------------------------
 import requests
+import streamlit as st
 
 def ai_helper():
     st.header("🤖 AI Doubt Solver (Free No-Key AI)")
@@ -111,11 +112,13 @@ def ai_helper():
     if st.button("Get Answer"):
         if user_q.strip():
             try:
-                url = "https://api-free.deploy.ai/api/generate"
+                url = "https://api.deepinfra.com/v1/openai/chat/completions"
 
                 payload = {
-                    "model": "llama-3-8b-instruct",
-                    "prompt": user_q,
+                    "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+                    "messages": [
+                        {"role": "user", "content": user_q}
+                    ],
                     "max_tokens": 150,
                     "temperature": 0.7
                 }
@@ -123,15 +126,13 @@ def ai_helper():
                 response = requests.post(url, json=payload)
                 data = response.json()
 
-                answer = data.get("output", "")
+                answer = data["choices"][0]["message"]["content"]
 
-                if not answer:
-                    st.warning("No answer returned. Try again.")
-                else:
-                    st.success(answer)
+                st.success(answer)
 
             except Exception as e:
                 st.error(f"❌ Error: {e}")
+
 
 # ---------------------------
 # MAIN APP UI
