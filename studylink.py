@@ -111,24 +111,24 @@ def ai_helper():
     if st.button("Get Answer"):
         if user_q.strip():
             try:
-                # Create a HuggingFace inference client (no cost)
+                # Use a smarter free model that works with HuggingFace API
                 client = InferenceClient(
-                    "gpt2",   # free model for answering
+                    "google/gemma-1.1-2b-it",
                     token=st.secrets["HF_API_KEY"]
                 )
 
-                # Generate the response
                 response = client.text_generation(
-                    user_q,
-                    max_new_tokens=80,
-                    temperature=0.7
+                    prompt=user_q,
+                    max_new_tokens=150,
+                    temperature=0.7,
                 )
 
                 st.success(response)
 
             except Exception as e:
-                st.error("❌ Error: " + str(e))
-                st.info("⚠ Make sure your HF_API_KEY is in Secrets.")
+                st.error(f"❌ Error: {e}")
+                st.info("⚠ Make sure your HF_API_KEY is valid and Secrets are saved.")
+
 
 
 # ---------------------------
