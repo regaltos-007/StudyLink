@@ -107,7 +107,47 @@ import requests
 def ai_helper():
     st.header("🤖 AI Doubt Solver (Free No-Key AI)")
 
+    user_q = st.text_area("Ask any study question")import streamlit as st
+import requests
+
+def ai_helper():
+    st.header("🤖 AI Doubt Solver (Free With Groq AI)")
+
     user_q = st.text_area("Ask any study question")
+
+    if st.button("Get Answer"):
+        if not user_q.strip():
+            st.warning("Enter a question first.")
+            return
+
+        url = "https://api.groq.com/openai/v1/chat/completions"
+
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {st.secrets['GROQ_API_KEY']}"
+        }
+
+        payload = {
+            "model": "llama3-8b-8192",
+            "messages": [
+                {"role": "user", "content": user_q}
+            ],
+            "max_tokens": 200
+        }
+
+        try:
+            response = requests.post(url, json=payload, headers=headers)
+            
+            if response.status_code == 200:
+                data = response.json()
+                answer = data["choices"][0]["message"]["content"]
+                st.success(answer)
+            else:
+                st.error(f"API Error: {response.text}")
+
+        except Exception as e:
+            st.error(f"Error: {e}")
+
 
     if st.button("Get Answer"):
         if not user_q.strip():
