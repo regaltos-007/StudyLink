@@ -101,32 +101,35 @@ def notes_section():
 # ---------------------------
 # AI DOUBT SOLVER (DEMO)
 # ---------------------------
-import openai
+from huggingface_hub import InferenceClient
 
 def ai_helper():
-    st.header("🤖 AI Doubt Solver")
+    st.header("🤖 AI Doubt Solver (Free HuggingFace AI)")
 
     user_q = st.text_area("Ask any study question")
 
     if st.button("Get Answer"):
         if user_q.strip():
             try:
-                client = openai.OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
-
-                response = client.chat.completions.create(
-                    model="gpt-4o-mini",
-                    messages=[
-                        {"role": "system", "content": "You are a helpful educational assistant."},
-                        {"role": "user", "content": user_q}
-                    ]
+                # Create a HuggingFace inference client (no cost)
+                client = InferenceClient(
+                    "gpt2",   # free model for answering
+                    token=st.secrets["HF_API_KEY"]
                 )
 
-                answer = response.choices[0].message["content"]
-                st.success(answer)
+                # Generate the response
+                response = client.text_generation(
+                    user_q,
+                    max_new_tokens=80,
+                    temperature=0.7
+                )
+
+                st.success(response)
 
             except Exception as e:
                 st.error("❌ Error: " + str(e))
-                st.info("⚠ Make sure your API key is correct in Secrets and requirements.txt contains 'openai'.")
+                st.info("⚠ Make sure your HF_API_KEY is in Secrets.")
+
 
 # ---------------------------
 # MAIN APP UI
