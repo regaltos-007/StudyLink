@@ -105,12 +105,6 @@ import streamlit as st
 import requests
 
 def ai_helper():
-    st.header("🤖 AI Doubt Solver (Free No-Key AI)")
-
-    user_q = st.text_area("Ask any study question")import streamlit as st
-import requests
-
-def ai_helper():
     st.header("🤖 AI Doubt Solver (Free With Groq AI)")
 
     user_q = st.text_area("Ask any study question")
@@ -148,31 +142,6 @@ def ai_helper():
         except Exception as e:
             st.error(f"Error: {e}")
 
-
-    if st.button("Get Answer"):
-        if not user_q.strip():
-            st.warning("Enter a question first.")
-            return
-
-        url = "https://ollama-api2-ncj0.onrender.com/api/generate"
-
-        payload = {
-            "model": "llama3.2",   # no-key free model
-            "prompt": user_q
-        }
-
-        try:
-            response = requests.post(url, json=payload)
-            
-            if response.status_code == 200:
-                data = response.json()
-                answer = data["response"]
-                st.success(answer)
-            else:
-                st.error(f"API Error: {response.text}")
-
-        except Exception as e:
-            st.error(f"Error: {e}")
 
 # ---------------------------
 # MAIN APP UI
