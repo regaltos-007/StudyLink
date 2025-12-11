@@ -103,7 +103,6 @@ def notes_section():
 # ---------------------------
 import streamlit as st
 import requests
-import json
 
 def ai_helper():
     st.header("🤖 AI Doubt Solver (Free No-Key AI)")
@@ -114,28 +113,23 @@ def ai_helper():
         if not user_q.strip():
             st.warning("Enter a question first.")
             return
-        
+
+        url = "https://api.deepinfra.com/v1/inference/meta-llama/Meta-Llama-3-8B-Instruct"
+
+        payload = {
+            "input": user_q,
+            "max_new_tokens": 100
+        }
+
         try:
-            url = "https://huggingface.co/meta-llama/Llama-3-8B-Instruct"
-
-            headers = {
-                "Content-Type": "application/json"
-            }
-
-            payload = {
-                "inputs": user_q,
-                "parameters": {"max_new_tokens": 100}
-            }
-
-            response = requests.post(url, headers=headers, data=json.dumps(payload))
+            response = requests.post(url, json=payload)
             
-            # HF returns raw text, not OpenAI-style
-            try:
-                answer = response.json()[0]["generated_text"]
-            except:
-                answer = response.text
-
-            st.success(answer)
+            if response.status_code == 200:
+                data = response.json()
+                answer = data["results"][0]["generated_text"]
+                st.success(answer)
+            else:
+                st.error(f"API Error: {response.text}")
 
         except Exception as e:
             st.error(f"Error: {e}")
