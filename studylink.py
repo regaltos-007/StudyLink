@@ -104,28 +104,33 @@ def notes_section():
 import requests
 
 def ai_helper():
-    st.header("🤖 AI Doubt Solver (Free No-Key AI)")
+    st.header("🤖 AI Doubt Solver (Free No-Key AI - Llama 3)")
 
     user_q = st.text_area("Ask any study question")
 
     if st.button("Get Answer"):
         if user_q.strip():
             try:
-                # Call a free no-key AI endpoint
-                url = "https://no-key-text-gen-api.vercel.app/api/generate"
-                payload = {"prompt": user_q}
+                url = "https://api.together.xyz/inference"
+                
+                payload = {
+                    "model": "meta-llama/Llama-3-8b-chat-hf",
+                    "prompt": user_q,
+                    "max_tokens": 150,
+                    "temperature": 0.7,
+                }
 
                 response = requests.post(url, json=payload)
                 data = response.json()
 
-                answer = data.get("text", "No answer returned.")
+                # Extract output text
+                answer = data.get("output_text", "No answer returned.")
 
                 st.success(answer)
 
             except Exception as e:
                 st.error(f"❌ Error: {e}")
-                st.info("⚠ Free AI server may be slow, try again.")
-
+                st.info("⚠ Try again — free public AI servers sometimes get overloaded.")
 
 # ---------------------------
 # MAIN APP UI
