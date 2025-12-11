@@ -101,34 +101,30 @@ def notes_section():
 # ---------------------------
 # AI DOUBT SOLVER (DEMO)
 # ---------------------------
-from huggingface_hub import InferenceClient
+import requests
 
 def ai_helper():
-    st.header("🤖 AI Doubt Solver (Free HuggingFace AI)")
+    st.header("🤖 AI Doubt Solver (Free No-Key AI)")
 
     user_q = st.text_area("Ask any study question")
 
     if st.button("Get Answer"):
         if user_q.strip():
             try:
-                # Use a smarter free model that works with HuggingFace API
-                client = InferenceClient(
-                    "google/gemma-1.1-2b-it",
-                    token=st.secrets["HF_API_KEY"]
-                )
+                # Call a free no-key AI endpoint
+                url = "https://no-key-text-gen-api.vercel.app/api/generate"
+                payload = {"prompt": user_q}
 
-                response = client.text_generation(
-                    prompt=user_q,
-                    max_new_tokens=150,
-                    temperature=0.7,
-                )
+                response = requests.post(url, json=payload)
+                data = response.json()
 
-                st.success(response)
+                answer = data.get("text", "No answer returned.")
+
+                st.success(answer)
 
             except Exception as e:
                 st.error(f"❌ Error: {e}")
-                st.info("⚠ Make sure your HF_API_KEY is valid and Secrets are saved.")
-
+                st.info("⚠ Free AI server may be slow, try again.")
 
 
 # ---------------------------
