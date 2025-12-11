@@ -104,33 +104,34 @@ def notes_section():
 import requests
 
 def ai_helper():
-    st.header("🤖 AI Doubt Solver (Free No-Key AI - Llama 3)")
+    st.header("🤖 AI Doubt Solver (Free No-Key AI)")
 
     user_q = st.text_area("Ask any study question")
 
     if st.button("Get Answer"):
         if user_q.strip():
             try:
-                url = "https://api.together.xyz/inference"
+                # TinyLlama free public inference server
+                url = "https://tinylm-api.vercel.app/api/generate"
                 
                 payload = {
-                    "model": "meta-llama/Llama-3-8b-chat-hf",
                     "prompt": user_q,
-                    "max_tokens": 150,
-                    "temperature": 0.7,
+                    "max_tokens": 120,
                 }
 
                 response = requests.post(url, json=payload)
                 data = response.json()
 
-                # Extract output text
-                answer = data.get("output_text", "No answer returned.")
+                answer = data.get("output", "")
+
+                if not answer:
+                    answer = "No answer returned."
 
                 st.success(answer)
 
             except Exception as e:
                 st.error(f"❌ Error: {e}")
-                st.info("⚠ Try again — free public AI servers sometimes get overloaded.")
+                st.info("⚠ Try again — free model may respond slowly.")
 
 # ---------------------------
 # MAIN APP UI
