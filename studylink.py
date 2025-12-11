@@ -111,12 +111,13 @@ def ai_helper():
     if st.button("Get Answer"):
         if user_q.strip():
             try:
-                # TinyLlama free public inference server
-                url = "https://tinylm-api.vercel.app/api/generate"
-                
+                url = "https://api-free.deploy.ai/api/generate"
+
                 payload = {
+                    "model": "llama-3-8b-instruct",
                     "prompt": user_q,
-                    "max_tokens": 120,
+                    "max_tokens": 150,
+                    "temperature": 0.7
                 }
 
                 response = requests.post(url, json=payload)
@@ -125,13 +126,12 @@ def ai_helper():
                 answer = data.get("output", "")
 
                 if not answer:
-                    answer = "No answer returned."
-
-                st.success(answer)
+                    st.warning("No answer returned. Try again.")
+                else:
+                    st.success(answer)
 
             except Exception as e:
                 st.error(f"❌ Error: {e}")
-                st.info("⚠ Try again — free model may respond slowly.")
 
 # ---------------------------
 # MAIN APP UI
