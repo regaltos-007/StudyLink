@@ -172,12 +172,18 @@ def ai_helper():
         }
 
         payload = {
-            "model": "llama-3.1-8b-instant",   # ✅ Updated model
+            "model": "llama-3.1-8b-instant",
             "messages": [
+                {"role": "system", "content": 
+                 "You are StudyLink AI. Provide complete, detailed study answers with headings, bullet points, examples, and summaries."
+                },
                 {"role": "user", "content": user_q}
             ],
-            "max_tokens": 200
+            "max_tokens": 1200,
+            "temperature": 0.4,
+            "top_p": 1
         }
+
 
         try:
             response = requests.post(url, json=payload, headers=headers)
