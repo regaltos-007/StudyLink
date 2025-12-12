@@ -1,55 +1,91 @@
 import streamlit as st
 from datetime import datetime
 import uuid
-def set_study_gradient():
+def set_notebook_theme():
     st.markdown(
         """
         <style>
-        /* Full App Background */
+
+        /* Notebook background */
         .stApp {
-            background: linear-gradient(135deg, #1e3c72, #2a5298, #4c2a85);
+            background: repeating-linear-gradient(
+                white,
+                white 38px,
+                #cfe0ff 40px
+            );
             background-attachment: fixed;
         }
 
-        /* Page text styling for readability */
-        h1, h2, h3, label, p {
-            color: #ffffff !important;
-            text-shadow: 0px 2px 5px rgba(0,0,0,0.4);
+        /* Side margin like notebook */
+        .main {
+            padding-left: 60px !important;
+            padding-right: 60px !important;
         }
 
-        /* Input areas styling */
-        .stTextInput, .stTextArea {
-            background-color: rgba(255,255,255,0.1) !important;
-            border-radius: 10px;
+        /* Red notebook margin line */
+        .stApp::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 45px;
+            width: 3px;
+            background-color: #ff6b6b;
+            z-index: -1;
+        }
+
+        h1, h2, h3, label, p {
+            font-family: "Segoe UI", sans-serif;
+            color: #222;
+        }
+
+        /* Text area styled like notebook box */
+        textarea {
+            background: rgba(255,255,255,0.7) !important;
+            border: 2px solid #b8c6e0 !important;
+            border-radius: 10px !important;
+            padding: 10px !important;
+            line-height: 1.6 !important;
+            font-size: 18px !important;
+        }
+
+        /* Text input boxes */
+        .stTextInput>div>div>input {
+            background: rgba(255,255,255,0.7) !important;
+            border: 2px solid #b8c6e0 !important;
+            border-radius: 10px !important;
+            font-size: 18px !important;
         }
 
         /* Buttons */
         .stButton>button {
-            background-color: #6a5acd !important;
+            background-color: #4a6cf7 !important;
             color: white !important;
-            border-radius: 8px;
-            padding: 0.6em 1.2em;
-            font-weight: bold;
-            border: 1px solid white;
+            border-radius: 10px !important;
+            padding: 10px 20px !important;
+            font-size: 16px !important;
+            border: none;
+            outline: none;
         }
 
-        /* Button hover */
         .stButton>button:hover {
-            background-color: #8a7adc !important;
-            border-color: #ffffff;
+            background-color: #6d8cff !important;
         }
 
-        /* Response box background */
+        /* Alerts */
         .stAlert {
-            background-color: rgba(255,255,255,0.2) !important;
-            color: white !important;
-            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.6) !important;
+            border-radius: 10px !important;
+            color: #222 !important;
         }
+
         </style>
         """,
         unsafe_allow_html=True
     )
-set_study_gradient()
+
+# Apply theme
+set_notebook_theme()
 
 st.set_page_config(page_title="StudyLink", layout="wide")
 
