@@ -1,70 +1,56 @@
 import streamlit as st
 from datetime import datetime
 import uuid
-def set_studyroom_theme():
+def set_study_gradient():
     st.markdown(
         """
         <style>
-
-        /* Background: Study room wooden desk aesthetic */
+        /* Full App Background */
         .stApp {
-            background-image: url("https://images.pexels.com/photos/7130560/pexels-photo-7130560.jpeg");
-            background-size: cover;
+            background: linear-gradient(135deg, #1e3c72, #2a5298, #4c2a85);
             background-attachment: fixed;
-            background-position: center;
         }
 
-        /* Semi-transparent card look */
-        .main, .stTextInput, .stTextArea, .stAlert {
-            background: rgba(255, 255, 255, 0.6) !important;
-            border-radius: 12px !important;
-            padding: 15px !important;
-        }
-
-        /* Header text */
+        /* Page text styling for readability */
         h1, h2, h3, label, p {
-            color: #2b2b2b !important;
-            font-family: 'Segoe UI', sans-serif;
-            text-shadow: 0px 1px 3px rgba(255,255,255,0.4);
+            color: #ffffff !important;
+            text-shadow: 0px 2px 5px rgba(0,0,0,0.4);
         }
 
-        /* Text input style */
-        textarea, .stTextInput>div>div>input {
-            background: rgba(255,255,255,0.85) !important;
-            border-radius: 8px !important;
-            border: 1.5px solid #d0d0d0 !important;
-            padding: 10px !important;
-            font-size: 18px !important;
-            color: #222 !important;
+        /* Input areas styling */
+        .stTextInput, .stTextArea {
+            background-color: rgba(255,255,255,0.1) !important;
+            border-radius: 10px;
         }
 
-        /* Button styling */
+        /* Buttons */
         .stButton>button {
-            background-color: rgba(44, 62, 80, 0.85) !important;
+            background-color: #6a5acd !important;
             color: white !important;
-            border-radius: 10px !important;
+            border-radius: 8px;
             padding: 0.6em 1.2em;
-            font-size: 16px !important;
-            border: none;
+            font-weight: bold;
+            border: 1px solid white;
         }
 
+        /* Button hover */
         .stButton>button:hover {
-            background-color: rgba(52, 73, 94, 1) !important;
+            background-color: #8a7adc !important;
+            border-color: #ffffff;
         }
 
-        /* Alerts */
+        /* Response box background */
         .stAlert {
-            backdrop-filter: blur(4px);
-            border-left: 5px solid #2c3e50;
+            background-color: rgba(255,255,255,0.2) !important;
+            color: white !important;
+            border-radius: 8px;
         }
-
         </style>
         """,
         unsafe_allow_html=True
     )
+set_study_gradient()
 
-# Apply theme
-set_studyroom_theme()
 
 st.set_page_config(page_title="StudyLink", layout="wide")
 
