@@ -1,6 +1,55 @@
 import streamlit as st
 from datetime import datetime
 import uuid
+def set_study_gradient():
+    st.markdown(
+        """
+        <style>
+        /* Full App Background */
+        .stApp {
+            background: linear-gradient(135deg, #1e3c72, #2a5298, #4c2a85);
+            background-attachment: fixed;
+        }
+
+        /* Page text styling for readability */
+        h1, h2, h3, label, p {
+            color: #ffffff !important;
+            text-shadow: 0px 2px 5px rgba(0,0,0,0.4);
+        }
+
+        /* Input areas styling */
+        .stTextInput, .stTextArea {
+            background-color: rgba(255,255,255,0.1) !important;
+            border-radius: 10px;
+        }
+
+        /* Buttons */
+        .stButton>button {
+            background-color: #6a5acd !important;
+            color: white !important;
+            border-radius: 8px;
+            padding: 0.6em 1.2em;
+            font-weight: bold;
+            border: 1px solid white;
+        }
+
+        /* Button hover */
+        .stButton>button:hover {
+            background-color: #8a7adc !important;
+            border-color: #ffffff;
+        }
+
+        /* Response box background */
+        .stAlert {
+            background-color: rgba(255,255,255,0.2) !important;
+            color: white !important;
+            border-radius: 8px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+set_study_gradient()
 
 st.set_page_config(page_title="StudyLink", layout="wide")
 
