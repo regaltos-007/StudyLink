@@ -2,54 +2,88 @@ import streamlit as st
 from datetime import datetime
 import uuid
 def set_study_gradient():
-    st.markdown(
-        """
+    st.markdown("""
         <style>
-        /* Full App Background */
-        .stApp {
-            background: linear-gradient(135deg, #1e3c72, #2a5298, #4c2a85);
-            background-attachment: fixed;
-        }
+            /* ----- Page Background: Soft Library with Wooden Desk Overlay ----- */
+.stApp {
+    background: 
+        linear-gradient(rgba(20, 15, 10, 0.55), rgba(20, 15, 10, 0.70)),
+        url('https://images.unsplash.com/photo-1515165562835-c4c7e73e8fcf');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #f3e8d0 !important;
+}
 
-        /* Page text styling for readability */
-        h1, h2, h3, label, p {
-            color: #ffffff !important;
-            text-shadow: 0px 2px 5px rgba(0,0,0,0.4);
-        }
+/* ----- Text Area (Notebook-style input) ----- */
+textarea {
+    background-color: rgba(255, 248, 225, 0.85) !important;
+    color: #3b2f2f !important;
+    border-radius: 10px !important;
+    border: 2px solid #d3b98c !important;
+    font-family: "Georgia", serif !important;
+    font-size: 17px !important;
+}
 
-        /* Input areas styling */
-        .stTextInput, .stTextArea {
-            background-color: rgba(255,255,255,0.1) !important;
-            border-radius: 10px;
-        }
+/* ----- Buttons (Wooden feel) ----- */
+.stButton > button {
+    background-color: #8b5e3b !important;
+    color: #fff8e6 !important;
+    border-radius: 8px !important;
+    border: 2px solid #6d4c32 !important;
+    padding: 8px 20px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    font-family: "Georgia", serif !important;
+    transition: 0.3s ease;
+}
 
-        /* Buttons */
-        .stButton>button {
-            background-color: #6a5acd !important;
-            color: white !important;
-            border-radius: 8px;
-            padding: 0.6em 1.2em;
-            font-weight: bold;
-            border: 1px solid white;
-        }
+.stButton > button:hover {
+    background-color: #a9744e !important;
+    border-color: #8b5e3b !important;
+    transform: scale(1.05);
+}
 
-        /* Button hover */
-        .stButton>button:hover {
-            background-color: #8a7adc !important;
-            border-color: #ffffff;
-        }
+/* ----- Answer Box (Paper card on wooden desk) ----- */
+.stMarkdown, .stAlert {
+    background: rgba(255, 248, 230, 0.92) !important;
+    border-left: 6px solid #8b5e3b !important;
+    padding: 18px;
+    border-radius: 10px;
+    color: #3b2f2f !important;
+    font-family: "Georgia", serif !important;
+    line-height: 1.6 !important;
+    font-size: 18px !important;
+}
 
-        /* Response box background */
-        .stAlert {
-            background-color: rgba(255,255,255,0.2) !important;
-            color: white !important;
-            border-radius: 8px;
-        }
+/* ----- Sidebar (Dark wood theme) ----- */
+.css-1d391kg, .css-1avcm0n {
+    background: rgba(30, 20, 10, 0.85) !important;
+    color: #e9ddc6 !important;
+}
+
+.css-1lcbmhc, .css-17lntkn {
+    color: #e9ddc6 !important;
+}
+
+/* Sidebar buttons */
+.css-1q8dd3e, .css-1x8cf1d {
+    background-color: #6d4c32 !important;
+    color: #fff8e6 !important;
+    border-radius: 6px !important;
+}
+
+/* Title Styles */
+h1, h2, h3, h4 {
+    font-family: "Georgia", serif !important;
+    color: #f8e9c8 !important;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+}
+
         </style>
-        """,
-        unsafe_allow_html=True
-    )
+    """, unsafe_allow_html=True)
 set_study_gradient()
+
 
 
 st.set_page_config(page_title="StudyLink", layout="wide")
