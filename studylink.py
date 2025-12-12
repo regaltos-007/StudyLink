@@ -3,109 +3,113 @@ from datetime import datetime
 import uuid
 def set_study_gradient():
     st.markdown("""
-        <style>
-           /* ---------------- Lo-Fi Aesthetic Animated Background ---------------- */
-.stApp {
-    background: linear-gradient(-45deg, #2a2550, #3b1c32, #1c1f4a, #4a2f60);
-    background-size: 400% 400%;
-    animation: gradientShift 18s ease infinite;
-    color: #f2e9ff !important;
-}
+    <style>
 
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
+    /* --------------------------------------------------
+       MAIN LOFI ANIMATED BACKGROUND (NO IMAGE NEEDED)
+    --------------------------------------------------*/
+    .stApp {
+        background: linear-gradient(-45deg, #2b1e45, #3d255a, #1d2348, #4a2f60);
+        background-size: 400% 400%;
+        animation: gradientFlow 20s ease infinite;
+        color: #f3eaff !important;
+        position: relative;
+        overflow: hidden;
+    }
 
-/* Floating particles like lofi dust */
-.stApp::before {
-    content: "";
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-image: url("https://i.imgur.com/3ZQ3Z6F.png"); /* subtle dust texture */
-    opacity: 0.28;
-    pointer-events: none;
-    animation: floatDust 12s linear infinite;
-}
+    @keyframes gradientFlow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
 
-@keyframes floatDust {
-    from { transform: translateY(0px); }
-    to { transform: translateY(-40px); }
-}
+    /* --------------------------------------------------
+        FLOATING PARTICLE / LOFI DUST EFFECT
+        (generated with CSS, no external image!)
+    --------------------------------------------------*/
+    .stApp::before {
+        content: "";
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        pointer-events: none;
+        background: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 2px);
+        background-size: 4px 4px;
+        opacity: 0.14;
+        animation: dustFloat 12s linear infinite;
+    }
 
-/* ---------------- Lo-Fi Text Area ---------------- */
-textarea {
-    background: rgba(255, 255, 255, 0.10) !important;
-    border: 2px solid rgba(200, 150, 255, 0.45) !important;
-    color: #fbe9ff !important;
-    border-radius: 12px !important;
-    backdrop-filter: blur(5px);
-    padding: 14px !important;
-    font-size: 17px !important;
-    font-family: "Fira Code", monospace !important;
-}
+    @keyframes dustFloat {
+        from { transform: translateY(0px); }
+        to { transform: translateY(-40px); }
+    }
 
-/* ---------------- Lo-Fi Button (Neon Glow) ---------------- */
-.stButton > button {
-    background: rgba(70, 40, 120, 0.6) !important;
-    color: #f5e7ff !important;
-    border-radius: 10px !important;
-    padding: 10px 22px !important;
-    border: 1px solid #c39bff !important;
-    font-size: 17px !important;
-    font-weight: 600 !important;
-    text-shadow: 0 0 6px #b88fff;
-    transition: 0.25s ease-in-out;
-    backdrop-filter: blur(4px);
-}
+    /* --------------------------------------------------
+       TEXTAREA (LoFi glass style)
+    --------------------------------------------------*/
+    textarea {
+        background: rgba(255, 255, 255, 0.12) !important;
+        backdrop-filter: blur(6px);
+        border-radius: 12px !important;
+        padding: 14px !important;
+        border: 1px solid rgba(220, 180, 255, 0.4) !important;
+        font-size: 17px !important;
+        color: #f7e9ff !important;
+        font-family: "Fira Code", monospace !important;
+    }
 
-.stButton > button:hover {
-    background: rgba(120, 70, 200, 0.8) !important;
-    box-shadow: 0px 0px 12px #c39bff;
-    transform: scale(1.05);
-}
+    /* --------------------------------------------------
+        BUTTON (LoFi neon glow)
+    --------------------------------------------------*/
+    .stButton > button {
+        background: rgba(100, 60, 180, 0.65) !important;
+        border: 1px solid #d8b3ff !important;
+        border-radius: 10px !important;
+        padding: 10px 20px !important;
+        color: white !important;
+        font-size: 16px !important;
+        font-weight: 600 !important;
+        text-shadow: 0 0 6px #caaaff;
+        transition: 0.2s ease-in-out;
+    }
 
-/* ---------------- Answer Box (Glassmorphic Lofi Card) ---------------- */
-.stMarkdown, .stAlert {
-    background: rgba(255, 255, 255, 0.12) !important;
-    border-left: 4px solid #d8b3ff !important;
-    border-radius: 14px !important;
-    padding: 20px;
-    color: #f8eaff !important;
-    font-family: "Fira Code", monospace !important;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-}
+    .stButton > button:hover {
+        background: rgba(150, 90, 230, 0.85) !important;
+        box-shadow: 0 0 12px #e6c9ff;
+        transform: scale(1.05);
+    }
 
-/* ---------------- Sidebar (Dark Purple Glass) ---------------- */
-.css-1d391kg, .css-1avcm0n {
-    background: rgba(20, 10, 40, 0.65) !important;
-    backdrop-filter: blur(6px) !important;
-    color: #e8d5ff !important;
-}
+    /* --------------------------------------------------
+        GLASS CARD FOR AI ANSWER
+    --------------------------------------------------*/
+    .stAlert, .stMarkdown {
+        background: rgba(255,255,255,0.10) !important;
+        backdrop-filter: blur(8px);
+        padding: 20px !important;
+        border-radius: 12px !important;
+        border-left: 4px solid #e2baff !important;
+        color: #f7e9ff !important;
+        font-family: "Fira Code", monospace !important;
+    }
 
-.css-1lcbmhc, .css-17lntkn {
-    color: #e8d5ff !important;
-}
+    /* --------------------------------------------------
+        SIDEBAR
+    --------------------------------------------------*/
+    .css-1d391kg, .css-1avcm0n {
+        background: rgba(20, 10, 40, 0.55) !important;
+        backdrop-filter: blur(6px);
+        color: #e8d5ff !important;
+    }
 
-/* Sidebar buttons */
-.css-1q8dd3e, .css-1x8cf1d {
-    background: rgba(100, 60, 180, 0.6) !important;
-    color: white !important;
-    border-radius: 8px !important;
-}
+    h1, h2, h3 {
+        color: #ffeaff !important;
+        text-shadow: 0 0 10px rgba(230,200,255,0.5);
+        font-family: "Fira Code", monospace !important;
+    }
 
-/* ---------------- Headers ---------------- */
-h1, h2, h3, h4 {
-    font-family: "Fira Code", monospace !important;
-    color: #ffeaff !important;
-    text-shadow: 0px 0px 8px rgba(200, 150, 255, 0.6);
-}
-
-
-        </style>
+    </style>
     """, unsafe_allow_html=True)
+
 set_study_gradient()
 
 
