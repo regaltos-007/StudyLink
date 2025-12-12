@@ -1,82 +1,61 @@
 import streamlit as st
 from datetime import datetime
 import uuid
-def set_notebook_theme():
+def set_studyroom_theme():
     st.markdown(
         """
         <style>
 
-        /* Notebook background */
+        /* Background: Study room wooden desk aesthetic */
         .stApp {
-            background: repeating-linear-gradient(
-                white,
-                white 38px,
-                #cfe0ff 40px
-            );
+            background-image: url("https://images.pexels.com/photos/7130560/pexels-photo-7130560.jpeg");
+            background-size: cover;
             background-attachment: fixed;
+            background-position: center;
         }
 
-        /* Side margin like notebook */
-        .main {
-            padding-left: 60px !important;
-            padding-right: 60px !important;
+        /* Semi-transparent card look */
+        .main, .stTextInput, .stTextArea, .stAlert {
+            background: rgba(255, 255, 255, 0.6) !important;
+            border-radius: 12px !important;
+            padding: 15px !important;
         }
 
-        /* Red notebook margin line */
-        .stApp::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            left: 45px;
-            width: 3px;
-            background-color: #ff6b6b;
-            z-index: -1;
-        }
-
+        /* Header text */
         h1, h2, h3, label, p {
-            font-family: "Segoe UI", sans-serif;
-            color: #222;
+            color: #2b2b2b !important;
+            font-family: 'Segoe UI', sans-serif;
+            text-shadow: 0px 1px 3px rgba(255,255,255,0.4);
         }
 
-        /* Text area styled like notebook box */
-        textarea {
-            background: rgba(255,255,255,0.7) !important;
-            border: 2px solid #b8c6e0 !important;
-            border-radius: 10px !important;
+        /* Text input style */
+        textarea, .stTextInput>div>div>input {
+            background: rgba(255,255,255,0.85) !important;
+            border-radius: 8px !important;
+            border: 1.5px solid #d0d0d0 !important;
             padding: 10px !important;
-            line-height: 1.6 !important;
             font-size: 18px !important;
+            color: #222 !important;
         }
 
-        /* Text input boxes */
-        .stTextInput>div>div>input {
-            background: rgba(255,255,255,0.7) !important;
-            border: 2px solid #b8c6e0 !important;
-            border-radius: 10px !important;
-            font-size: 18px !important;
-        }
-
-        /* Buttons */
+        /* Button styling */
         .stButton>button {
-            background-color: #4a6cf7 !important;
+            background-color: rgba(44, 62, 80, 0.85) !important;
             color: white !important;
             border-radius: 10px !important;
-            padding: 10px 20px !important;
+            padding: 0.6em 1.2em;
             font-size: 16px !important;
             border: none;
-            outline: none;
         }
 
         .stButton>button:hover {
-            background-color: #6d8cff !important;
+            background-color: rgba(52, 73, 94, 1) !important;
         }
 
         /* Alerts */
         .stAlert {
-            background-color: rgba(255, 255, 255, 0.6) !important;
-            border-radius: 10px !important;
-            color: #222 !important;
+            backdrop-filter: blur(4px);
+            border-left: 5px solid #2c3e50;
         }
 
         </style>
@@ -85,7 +64,7 @@ def set_notebook_theme():
     )
 
 # Apply theme
-set_notebook_theme()
+set_studyroom_theme()
 
 st.set_page_config(page_title="StudyLink", layout="wide")
 
