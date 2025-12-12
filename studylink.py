@@ -4,81 +4,105 @@ import uuid
 def set_study_gradient():
     st.markdown("""
         <style>
-            /* ----- Page Background: Soft Library with Wooden Desk Overlay ----- */
+           /* ---------------- Lo-Fi Aesthetic Animated Background ---------------- */
 .stApp {
-    background: 
-        linear-gradient(rgba(20, 15, 10, 0.55), rgba(20, 15, 10, 0.70)),
-        url('https://images.unsplash.com/photo-1515165562835-c4c7e73e8fcf');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: #f3e8d0 !important;
+    background: linear-gradient(-45deg, #2a2550, #3b1c32, #1c1f4a, #4a2f60);
+    background-size: 400% 400%;
+    animation: gradientShift 18s ease infinite;
+    color: #f2e9ff !important;
 }
 
-/* ----- Text Area (Notebook-style input) ----- */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Floating particles like lofi dust */
+.stApp::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url("https://i.imgur.com/3ZQ3Z6F.png"); /* subtle dust texture */
+    opacity: 0.28;
+    pointer-events: none;
+    animation: floatDust 12s linear infinite;
+}
+
+@keyframes floatDust {
+    from { transform: translateY(0px); }
+    to { transform: translateY(-40px); }
+}
+
+/* ---------------- Lo-Fi Text Area ---------------- */
 textarea {
-    background-color: rgba(255, 248, 225, 0.85) !important;
-    color: #3b2f2f !important;
-    border-radius: 10px !important;
-    border: 2px solid #d3b98c !important;
-    font-family: "Georgia", serif !important;
+    background: rgba(255, 255, 255, 0.10) !important;
+    border: 2px solid rgba(200, 150, 255, 0.45) !important;
+    color: #fbe9ff !important;
+    border-radius: 12px !important;
+    backdrop-filter: blur(5px);
+    padding: 14px !important;
     font-size: 17px !important;
+    font-family: "Fira Code", monospace !important;
 }
 
-/* ----- Buttons (Wooden feel) ----- */
+/* ---------------- Lo-Fi Button (Neon Glow) ---------------- */
 .stButton > button {
-    background-color: #8b5e3b !important;
-    color: #fff8e6 !important;
-    border-radius: 8px !important;
-    border: 2px solid #6d4c32 !important;
-    padding: 8px 20px !important;
-    font-size: 16px !important;
+    background: rgba(70, 40, 120, 0.6) !important;
+    color: #f5e7ff !important;
+    border-radius: 10px !important;
+    padding: 10px 22px !important;
+    border: 1px solid #c39bff !important;
+    font-size: 17px !important;
     font-weight: 600 !important;
-    font-family: "Georgia", serif !important;
-    transition: 0.3s ease;
+    text-shadow: 0 0 6px #b88fff;
+    transition: 0.25s ease-in-out;
+    backdrop-filter: blur(4px);
 }
 
 .stButton > button:hover {
-    background-color: #a9744e !important;
-    border-color: #8b5e3b !important;
+    background: rgba(120, 70, 200, 0.8) !important;
+    box-shadow: 0px 0px 12px #c39bff;
     transform: scale(1.05);
 }
 
-/* ----- Answer Box (Paper card on wooden desk) ----- */
+/* ---------------- Answer Box (Glassmorphic Lofi Card) ---------------- */
 .stMarkdown, .stAlert {
-    background: rgba(255, 248, 230, 0.92) !important;
-    border-left: 6px solid #8b5e3b !important;
-    padding: 18px;
-    border-radius: 10px;
-    color: #3b2f2f !important;
-    font-family: "Georgia", serif !important;
-    line-height: 1.6 !important;
-    font-size: 18px !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    border-left: 4px solid #d8b3ff !important;
+    border-radius: 14px !important;
+    padding: 20px;
+    color: #f8eaff !important;
+    font-family: "Fira Code", monospace !important;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
 }
 
-/* ----- Sidebar (Dark wood theme) ----- */
+/* ---------------- Sidebar (Dark Purple Glass) ---------------- */
 .css-1d391kg, .css-1avcm0n {
-    background: rgba(30, 20, 10, 0.85) !important;
-    color: #e9ddc6 !important;
+    background: rgba(20, 10, 40, 0.65) !important;
+    backdrop-filter: blur(6px) !important;
+    color: #e8d5ff !important;
 }
 
 .css-1lcbmhc, .css-17lntkn {
-    color: #e9ddc6 !important;
+    color: #e8d5ff !important;
 }
 
 /* Sidebar buttons */
 .css-1q8dd3e, .css-1x8cf1d {
-    background-color: #6d4c32 !important;
-    color: #fff8e6 !important;
-    border-radius: 6px !important;
+    background: rgba(100, 60, 180, 0.6) !important;
+    color: white !important;
+    border-radius: 8px !important;
 }
 
-/* Title Styles */
+/* ---------------- Headers ---------------- */
 h1, h2, h3, h4 {
-    font-family: "Georgia", serif !important;
-    color: #f8e9c8 !important;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+    font-family: "Fira Code", monospace !important;
+    color: #ffeaff !important;
+    text-shadow: 0px 0px 8px rgba(200, 150, 255, 0.6);
 }
+
 
         </style>
     """, unsafe_allow_html=True)
