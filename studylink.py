@@ -5,109 +5,149 @@ def set_study_gradient():
     st.markdown("""
     <style>
 
-    /* --------------------------------------------------
-       MAIN LOFI ANIMATED BACKGROUND (NO IMAGE NEEDED)
-    --------------------------------------------------*/
+    /* ===========================================
+       1) STUDY DESK NIGHT BACKGROUND
+       =========================================== */
     .stApp {
-        background: linear-gradient(-45deg, #2b1e45, #3d255a, #1d2348, #4a2f60);
-        background-size: 400% 400%;
-        animation: gradientFlow 20s ease infinite;
-        color: #f3eaff !important;
+        background: linear-gradient(180deg, #120c1f 0%, #1a142b 35%, #2a1c15 80%);
+        background-attachment: fixed;
+        color: #f5e6d3 !important;
         position: relative;
         overflow: hidden;
+        font-family: 'Georgia', serif;
     }
 
-    @keyframes gradientFlow {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
+    /* Dark top → warm desk bottom */
+    
+    /* ===========================================
+       2) DESK SURFACE (wood-like texture with CSS)
+       =========================================== */
+    .stApp::after {
+        content: "";
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 35vh; /* desk height */
+        background: 
+            repeating-linear-gradient(
+                90deg,
+                rgba(120, 70, 40, 0.25) 0px,
+                rgba(120, 70, 40, 0.25) 3px,
+                rgba(150, 100, 60, 0.25) 3px,
+                rgba(150, 100, 60, 0.25) 6px
+            ),
+            linear-gradient(180deg, #3e2717, #2d1a10);
+        filter: brightness(1.3);
+        z-index: -1;
     }
 
-    /* --------------------------------------------------
-        FLOATING PARTICLE / LOFI DUST EFFECT
-        (generated with CSS, no external image!)
-    --------------------------------------------------*/
+    /* ===========================================
+       3) LAMP GLOW EFFECT
+       =========================================== */
+    .lampGlow {
+        position: fixed;
+        top: 18%;
+        right: 22%;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(
+            circle,
+            rgba(255, 230, 150, 0.55) 0%,
+            rgba(255, 200, 120, 0.25) 35%,
+            rgba(255, 180, 90, 0.12) 55%,
+            rgba(255, 160, 70, 0.05) 70%,
+            transparent 90%
+        );
+        border-radius: 50%;
+        animation: glowPulse 4s ease-in-out infinite alternate;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    @keyframes glowPulse {
+        0% { opacity: 0.45; transform: scale(1); }
+        100% { opacity: 0.65; transform: scale(1.13); }
+    }
+
+    /* ===========================================
+       4) VIGNETTE FOR DEPTH
+       =========================================== */
     .stApp::before {
         content: "";
         position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
+        inset: 0;
+        background: radial-gradient(
+            circle at center,
+            transparent 40%,
+            rgba(0, 0, 0, 0.4) 100%
+        );
         pointer-events: none;
-        background: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 2px);
-        background-size: 4px 4px;
-        opacity: 0.14;
-        animation: dustFloat 12s linear infinite;
+        z-index: -2;
     }
 
-    @keyframes dustFloat {
-        from { transform: translateY(0px); }
-        to { transform: translateY(-40px); }
-    }
-
-    /* --------------------------------------------------
-       TEXTAREA (LoFi glass style)
-    --------------------------------------------------*/
+    /* ===========================================
+       5) TEXTAREA - warm lamp highlight
+       =========================================== */
     textarea {
-        background: rgba(255, 255, 255, 0.12) !important;
+        background: rgba(255, 245, 225, 0.12) !important;
         backdrop-filter: blur(6px);
         border-radius: 12px !important;
+        border: 1px solid rgba(255, 212, 150, 0.35) !important;
         padding: 14px !important;
-        border: 1px solid rgba(220, 180, 255, 0.4) !important;
         font-size: 17px !important;
-        color: #f7e9ff !important;
-        font-family: "Fira Code", monospace !important;
+        color: #ffeccc !important;
     }
 
-    /* --------------------------------------------------
-        BUTTON (LoFi neon glow)
-    --------------------------------------------------*/
+    /* ===========================================
+       6) BUTTON - warm lamp button style
+       =========================================== */
     .stButton > button {
-        background: rgba(100, 60, 180, 0.65) !important;
-        border: 1px solid #d8b3ff !important;
+        background: rgba(255, 200, 140, 0.18) !important;
+        border: 1px solid rgba(255, 180, 120, 0.45) !important;
         border-radius: 10px !important;
-        padding: 10px 20px !important;
-        color: white !important;
+        padding: 9px 18px !important;
+        color: #ffe5c7 !important;
         font-size: 16px !important;
-        font-weight: 600 !important;
-        text-shadow: 0 0 6px #caaaff;
-        transition: 0.2s ease-in-out;
+        transition: 0.25s;
+        text-shadow: 0 0 8px rgba(255, 200, 150, 0.5);
     }
 
     .stButton > button:hover {
-        background: rgba(150, 90, 230, 0.85) !important;
-        box-shadow: 0 0 12px #e6c9ff;
+        background: rgba(255, 190, 110, 0.35) !important;
+        box-shadow: 0 0 18px rgba(255, 210, 160, 0.6);
         transform: scale(1.05);
     }
 
-    /* --------------------------------------------------
-        GLASS CARD FOR AI ANSWER
-    --------------------------------------------------*/
+    /* ===========================================
+       7) ANSWER BOX (glass warm panel)
+       =========================================== */
     .stAlert, .stMarkdown {
-        background: rgba(255,255,255,0.10) !important;
-        backdrop-filter: blur(8px);
+        background: rgba(255, 240, 220, 0.08) !important;
+        border-left: 4px solid rgba(255, 200, 140, 0.7) !important;
         padding: 20px !important;
         border-radius: 12px !important;
-        border-left: 4px solid #e2baff !important;
-        color: #f7e9ff !important;
-        font-family: "Fira Code", monospace !important;
+        color: #ffe7c9 !important;
+        backdrop-filter: blur(6px);
     }
 
-    /* --------------------------------------------------
-        SIDEBAR
-    --------------------------------------------------*/
+    /* ===========================================
+       8) SIDEBAR
+       =========================================== */
     .css-1d391kg, .css-1avcm0n {
-        background: rgba(20, 10, 40, 0.55) !important;
-        backdrop-filter: blur(6px);
-        color: #e8d5ff !important;
+        background: rgba(20, 12, 6, 0.55) !important;
+        color: #ffe4c7 !important;
+        backdrop-filter: blur(4px);
     }
 
     h1, h2, h3 {
-        color: #ffeaff !important;
-        text-shadow: 0 0 10px rgba(230,200,255,0.5);
-        font-family: "Fira Code", monospace !important;
+        color: #ffe8c9 !important;
+        text-shadow: 0 0 8px rgba(255, 220, 160, 0.4);
     }
 
     </style>
+
+    <div class="lampGlow"></div>
     """, unsafe_allow_html=True)
 
 set_study_gradient()
